@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/MarlaSinger2025/Movie_Api/issues"
   },
-  "homepage": "https://github.com/MarlaSinger2025/Movie_Api#readme"
+  "homepage": "https://github.com/MarlaSinger2025/Movie_Api#readme",
+  "dependencies": {
+    "body-parser": "^2.2.1",
+    "express": "^5.1.0"
+  }
 }
