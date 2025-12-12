@@ -64,65 +64,99 @@ Users might also be able to create a "To watch" list </p>
             <td>Returns data about a single movie by title</td>
         </tr>
          <tr>
-            <td>/movies/genre/:genreName</td>
+            <td>/movies/genre/:Name</td>
             <td>GET</td>
             <td>--</td>
             <td>A Json object holding data about a genre title and its description</td>
             <td>Returns data about a genre (description) by name/title (e.g., “Thriller”)</td>
         </tr>
          <tr>
-            <td>/movies/director/:directorName</td>
+            <td>/movies/director/:Name</td>
             <td>GET</td>
             <td>--</td>
-            <td>A Json object holding data about a single director, containing name, biografie and birth year </td>
-            <td>Return data about a director (name, bio, birth year) by name</td>
+            <td>A Json object holding data about a single director, containing their movies, name, biografie and birth year </td>
+            <td>Return data about a director (movies, name, bio, birth year) by name</td>
         </tr>
         <tr>
             <td>/users</td>
             <td>POST</td>
             <td>A Json object holding data about the new user to be added, structured like this: 
                <p style="color: mediumblue; font-size: small;">{
-                   <br> Name: "",
-                    <br> Favorites: []
+                   <br> "Username": "String",
+                   <br> "Password": "String",
+                   <br>"Email": "String",
+                   <br> "Birthday": "Date"
               <br> } </p>
             </td>
             <td>A Json object holding data about the new user that was added, including a generated ID. Example:
                <p style="color: mediumblue; font-size: small;">{
-                   <br> Name: "Toni",
-                    <br> Favorites: ["Amelie", "Labyrinth"],
-                    <br> ID: "1"
-              <br> }  </p>
+                   <br> Username: Toni,
+                   <br> Password: 1234,
+                   <br>Email: MyEmail@toni.com,
+                   <br> Birthday: 1900-12-12,
+                   <br> FavoriteMovies: [],
+                   <br> _id: 42
+              <br> } </p>
             </td>
             <td>Allows new users to register</td>
         </tr>
         <tr>
-            <td>/users/:id</td>
+            <td>/users/:Username</td>
             <td>PUT</td>
             <td>A Json object holding data about the username thats gonna be updated. Structured like this:
                 <p style="color: mediumblue; font-size: small;">{
-                   <br> "Name": "[Enter new name]",
-                   <br> "Favorites": []
+                   <br> Username: String,
+                   <br> Password: String,
+                   <br>Email: String,
+                   <br> Birthday: Date
              <br>   } </p>
             </td>
-            <td>Showing a message that the username was successfully updated</td>
-            <td>Allows users to update their user info (username)</td>
+            <td>A Json object showing the updated data about the user. Example:
+                <p style="color: mediumblue; font-size: small;">{
+                   <br> _id: 42
+                   <br> Username: NewUserName,
+                   <br> Password: 1234,
+                   <br>Email: NewEmail@toni.com,
+                   <br> Birthday: 1900-12-12,
+                   <br> FavoriteMovies: []
+             <br>   } </p>
+            </td>
+            <td>Allows users to update their user info</td>
         </tr>
         <tr>
-            <td>/users/:id/:movieTitle</td>
+            <td>/users/:Username/movies/:MovieID</td>
             <td>POST</td>
             <td>--</td>
-            <td>Showing a message that the a movie was successfully added to the favorites list</td>
+            <td>A Json object showing the users profil with the added favorite movie. Example:
+                <p style="color: mediumblue; font-size: small;">{
+                   <br> _id: 42
+                   <br> Username: NewUserName,
+                   <br> Password: 1234,
+                   <br>Email: NewEmail@toni.com,
+                   <br> Birthday: 1900-12-12,
+                   <br> FavoriteMovies: [ "6939845300d65a05931e2628" ]
+             <br>   } </p>
+            </td>
             <td>Allows users to add a movie to their list of favorite movies</td>
         </tr>
         <tr>
-            <td>/users/:id/:movieTitle</td>
+            <td>/users/:Username/movies/:MovieID</td>
             <td>DELETE</td>
             <td>--</td>
-            <td>Showing a message that a movie has been successfully removed from the favorites list</td>
+            <td>A Json object showing the users profile, showing that one of the favorite movies has been deleted from the array. Example:
+                <p style="color: mediumblue; font-size: small;">{
+                   <br> _id: 42
+                   <br> Username: NewUserName,
+                   <br> Password: 1234,
+                   <br>Email: NewEmail@toni.com,
+                   <br> Birthday: 1900-12-12,
+                   <br> FavoriteMovies: []
+             <br>   } </p>
+            </td>
             <td>Allows users to remove a movie from their list of favorite movies</td>
         </tr>
         <tr>
-            <td>/users/:id</td>
+            <td>/users/:Username</td>
             <td>DELETE</td>
             <td>--</td>
             <td>Showing message that a user has been removed</td>
