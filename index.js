@@ -85,10 +85,14 @@ Email: String,
 Birthday: Date
 } */
 app.post('/users', async (req,res) => {
-    await Users.findOne({ Username: req.body.Username })
+    await Users.findOne({ $or: [ { Username: req.body.Username }, { Email: req.body.Email}]})
     .then((user) => {
         if (user) {
+          if (user.Username === req.body.Username) {
             return res.status(400).send(req.body.Username + ' already exists');
+          } if (user.Email === req.body.Email) {
+            return res.status(400).send(req.body.Email + ' already exists');
+          }
         } else {
             Users
               .create({
@@ -97,7 +101,7 @@ app.post('/users', async (req,res) => {
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
               })
-              .then((user) => {res.status(201).json(user) })
+              .then((user) => {res.status(201).json({ Username: user.Username, Email: user.Email, Birthday: user.Birthday}) })
             .catch((error) => {
                 console.error(error);
                 res.status(500).send('Error: ' + error);
